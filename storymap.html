@@ -1,0 +1,74 @@
+<html>
+<head>
+<title>En kartberättelse från geosupportsystem.wordpress.com</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+<link rel="stylesheet" href="storymap.css" />
+</head>
+<body>
+
+
+<!-- De tre komponenter som utgör själva berättelsen -->
+<div id="rubrik">Min Rubrik på Berättelsen</div>
+<div id="story"></div>
+<div id="map"></div>
+
+<!-- Och en för att kunna backa berättelsen -->
+<div id="backa">Backa</div>
+
+<!-- Här sker anrop till javaskript och kartan startinställs -->
+<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+<script>
+	var startKoordinat = [57.66818, 14.97132]; // ändra här till eget startläge
+	var startZoom = 10; // ändra här till önskad zoom från start
+	var rubrikOpacitet = 0.6; // ändra här till önskad genomskinlighet på rubriken
+	var storyOpacitet = 0.8; // ändra här till önskad genomskinlighet på berättelsen
+	var panoreringsTid = 2; // ändra här om du vill att panoreringarna skall gå snabbare eller långsammare
+</script>
+<script src="storymap.js"></script>
+
+<!-- Här börjar själva berättelsen -->
+<script>
+
+// startText är den variabel som används först och sist i presentationen.
+// använd <h1></h1> för rubriker
+// använd class='videoWrapper' för videoklipp (enligt exempel nedan)
+// använd inte "bädda in" rakt av för videoklipp, om du vill anpassa storleken till skärmen.
+// testade taggar: <b></b>, <i></i>, <u></u>, <a></a>, <br>, <img>, men de flesta borde fungera...
+// använd inte " inne i texten utan ' om det behövs
+var startText = "<h1>Startläge</h1><div class='videoWrapper'><iframe src='//www.youtube.com/embed/kkdJhfwzI9c?autoplay=1' frameborder='0' allowfullscreen></iframe></div><br><br>Här skriver man den HTML-kod som skall användas för texten i startläget.<br><br>Filmen ovan gjorde jag för att demonstrera skillnader i rendering när man väljer att förenkla geometrier i QGIS.";
+
+// position är en lista med de centrumkoordinater som ingår i presentationen.
+var position = [
+	[56.02856, 14.14713],
+	[58.02575, 14.46584],
+	[57.66695, 14.97063]
+];
+
+// bubbelText är en lista med pop-up texter som visas när man klickar på markören.
+// det går bra att använda HTML här också!
+var visaVidStart = false;
+var bubbelText = [
+	"Naturrum<br><a href='http://www.vattenriket.kristianstad.se/naturum/'>Besök hemsidan</a>", 
+	"Gränna",
+	"Eksjö<br><img src='http://www.visiteksjo.se/wp-content/uploads/2013/11/vattentorn-300x158.jpg'>"
+];
+
+// storyText är en lista med själva innehållet i berättelsen.
+// det är viktigt att matcha position, bubbelText och storyText så att de hänger ihop i rätt ordning.
+var storyText = [
+	"<H1>Naturrum - Kristianstad</H1><img src='http://www.vattenriket.kristianstad.se/naturum/bilder/index_maj2.jpg'><br><br>Bilden är lånad från Naturrums hemsida, besök den gärna.<br><br><a href='http://www.vattenriket.kristianstad.se/naturum/'>Hemsida</a>",
+
+	"<h1>Gränna - Visingsö</h1><img src='http://destinationjonkoping.se/images/200.7c2c3c8e12c81fff89e80001222/Polkagrisar_Jonkoping.jpg'><br><br>Bilden är lånad av <a href='http://destinationjonkoping.se/grannavisingso/gora/polkagrisar.html'>Destination Jönköping</a>.<br><br>Det finns lite mer än polkagrisar i Gränna, men karamellfabrikerna ligger väldigt tätt!<br><ul><li>Gränna Museum</li><li>Braehus</li><li>BP-macken</li><li>Cykla på Visingsö</li><li>Polarcenter</li><li>Andrémuseum</li><li>Golf</li><li>Äppenvikens äventyrspark</li><li>med mera...</li></ul>",
+
+	"<h1>Eksjö</h1><img src='http://www.visiteksjo.se/wp-content/uploads/2014/05/affisch_v%C3%A5rfest_2014_huvud-2.jpg'><br><br>Varje lördag hela sommaren är det vaktparad, och sedan finns det massor av spännande arrangemang också. Läs mer på <a href='http://www.visiteksjo.se'>Visit Eksjö</a>."
+
+];
+
+
+</script>
+</body>
+</html>
+
+
